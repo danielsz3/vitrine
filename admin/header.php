@@ -21,33 +21,6 @@
                 <span>Dashboard</span></a>
         </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
-
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-                aria-expanded="true" aria-controls="collapseTwo">
-                <i class="fas fa-fw fa-plus"></i>
-                <span>Cadastros</span>
-            </a>
-            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="cadastros/categorias"><i class="fas fa-tags"></i> Categorias</a>
-                    <a class="collapse-item" href="cadastros/produtos"><i class="fas fa-gift"></i> Produtos</a>
-
-                    <a class="collapse-item" href="cadastros/tipos">
-                        <i class="fas fa-users"></i>
-                        Tipo de Usuário
-                    </a>
-
-                    <a class="collapse-item" href="cadastros/usuarios">
-                        <i class="fas fa-user-plus"></i>
-                        Usuário
-                    </a>
-                </div>
-            </div>
-        </li>
         <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
