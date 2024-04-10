@@ -9,22 +9,15 @@
         </div>
     </div>
     <div class="card-body">
-        <form action="salvar/categorias" method="POST"> </form>
-        <label for="nome">Nome da Categoria:</label>
-        <input 
-        type="text"
-        name="nome"
-        id="nome"
-        class="form-control"
-        required
-        >
+        <form action="salvar/categorias" method="POST">
+            <label for="nome">Nome da Categoria:</label>
+            <input type="text" name="nome" id="nome" class="form-control" required>
 
-        <br>
+            <br>
 
-        <button 
-        type="submit" class="btn btn-success">Salvar Dados 
-        </button>
-
+            <button type="submit" class="btn btn-success">Salvar Dados
+            </button>
+        </form>
 
 
     </div>
