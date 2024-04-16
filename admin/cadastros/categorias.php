@@ -1,3 +1,27 @@
+<?php 
+    
+    $nome = NULL;
+
+    if (!empty($id)) {
+
+        //precisa buscar a categoria que tenha o id na url
+        //salvar em uma variável nome
+
+        $sql = "select * from categoria where id = :id";
+        $consulta = $pdo -> prepare ($sql);
+        $consulta -> bindParam (':id', $id);
+        $consulta -> execute ();
+
+        $dados = $consulta -> fetch (PDO::FETCH_OBJ);
+
+        $id = $dados -> id ?? NULL;
+        $nome = $dados -> nome ?? NULL;
+
+    }
+
+?>
+
+
 <div class="card">
     <div class="card-header">
         <h2>Cadastro de categorias</h2>
@@ -10,8 +34,25 @@
     </div>
     <div class="card-body">
         <form action="salvar/categorias" method="POST">
+            <label for="id"> ID da Categoria</label>
+            <input
+                type="text"
+                name="id"
+                id="id"
+                class="form-control"
+                value="<?=$id?>"
+                readonly
+                >
+                
+
             <label for="nome">Nome da Categoria:</label>
-            <input type="text" name="nome" id="nome" class="form-control" required>
+            <input
+                type="text"
+                name="nome"
+                id="nome"
+                class="form-control"
+                required
+                value="<?=$nome?>" >
 
             <br>
 

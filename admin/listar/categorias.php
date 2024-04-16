@@ -20,6 +20,13 @@
                 <tr>
                     <td><?= $dados->id?></td>
                     <td><?= $dados->nome?></td>
+                    <td>
+                        <a href="cadastros/categorias/<?= $dados -> id ?> "
+                        class= "btn btn-sucess"
+                        >
+                        <i class="fas fa-edit"></i>
+                        </a>
+                    </td>
                 </tr>
                 <?php } ?>
             </tbody>
