@@ -1,17 +1,19 @@
-<h1 class="text-center"> Todas as categorias</h1>
+<h1 class="text-center"> Todas os Clientes</h1>
 <div class="card">
     <div class="card-body">
         <table class="table table-bordered table-hover table-striped">
             <thead>
                 <tr>
                     <td>ID</td>
-                    <td>Nome da categoria</td>
+                    <td>Nome do cliente</td>
+                    <td>CPF do cliente</td>
+                    <td>E-mail do cliente</td>
                     <td>Opções</td>
                 </tr>
             </thead>
             <tbody>
                 <?php
-                $sql = "SELECT * FROM categoria";
+                $sql = "SELECT * FROM cliente";
 
                 $consulta = $pdo->prepare($sql);
                 $consulta->execute();
@@ -20,17 +22,9 @@
                 <tr>
                     <td><?= $dados->id?></td>
                     <td><?= $dados->nome?></td>
-                    <td>
-                        <a href="cadastros/categorias/<?=$dados->id?>" class="btn btn-success">
-                            <i class="fas fa-edit"></i> </a>
+                    <td><?= $dados->email?></td>
+                    <td><?= $dados->cpf?></td>
 
-                        <a href="cadastros/categorias/<?=$dados->id?>" class="btn btn-danger"> 
-                            <i class="bi bi-trash"></i> </a>
-
-                            
-
-                        </a>
-                    </td>
                 </tr>
                 <?php } ?>
             </tbody>
