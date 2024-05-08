@@ -55,7 +55,7 @@ $cep = $dados -> cep ?? NULL;
 
         <form action="" method="post">
             <input type="text" name="cep">
-            <button type="submit">Pesquisar Endereço</button>
+            <button type="submit" class="btn btn-success">Buscar CEP</button>
         </form>
         <?php if($_POST['cep']){ ?>
         <h2>CEP Encontrado: </h2>
