@@ -1,45 +1,61 @@
 <?php 
 
 $cep = NULL;
+$numero = NULL;
 
-function get_endereco($cep){
-    // formatar o cep removendo caracteres nao numericos
+function get_foi($cep)
+{
     $cep = preg_replace("/[^0-9]/", "", $cep);
-    $url = file_get_contents("http://viacep.com.br/ws/$cep/json/");
-    $xml = json_decode($url,true);
-    return $xml;
-    }
-    ?>
-<meta charset="UTF-8">
-<form action="" method="post">
+    $url = "http://viacep.com.br/ws/$cep/json/";
+    $jason = file_get_contents($url);
+    $foi = json_decode($jason,true);
+    return $foi;
     
-</form>
-<?php if($_POST['cep']){ ?>
-
-
-<?php 
-    }
-
-
-if (!empty($id)) {
-
-//precisa buscar a categoria que tenha o id na url
-//salvar em uma variável nome
-
-$sql = "select * from categoria where id = :id";
-$consulta = $pdo -> prepare ($sql);
-$consulta -> bindParam (':id', $id);
-$consulta -> execute ();
-
-$dados = $consulta -> fetch (PDO::FETCH_OBJ);
-
-$id = $dados -> id ?? NULL;
-$cep = $dados -> cep ?? NULL;
-
 }
+
+$foi = NULL;
+
+if ($_POST['cep']) {
+    $foi = get_foi($_POST['cep']);
+
+if ($foi) {
+
+    
+$logradouro = $foi['logradouro'] ?? '';
+$cep = $foi['cep'] ?? '';
+$bairro = $foi['bairro'] ?? '';
+$uf = $foi['uf'] ?? '';
+$localidade = $foi['localidade'] ?? '';
+   
+    $sql = "select * from cep where id = :id";
+        $consulta = $pdo -> prepare ($sql);
+        $consulta -> bindParam (':id', $id);
+        $consulta -> execute ();
+
+        $dados = NULL;
+        
+        $dados = $consulta -> fetch (PDO::FETCH_OBJ);
+
+        $logradouro = $foi['logradouro'];
+        $bairro = $foi['bairro'];
+        $localidade = $foi['localidade'];
+        $estado = $foi['uf'];
+}
+    if ($dados) {
+        $logradouro = $dados->logradouro;
+        $bairro = $dados->bairro;
+        $localidade = $dados->localidade;
+        $estado = $dados->uf;
+    } else {
+        echo "CEP encontrado, mas registro não encontrado no banco de dados.";
+    }
+}
+
+
 
 ?>
 
+<meta charset="utf-8">
 
 <div class="card">
     <div class="card-header">
@@ -54,34 +70,45 @@ $cep = $dados -> cep ?? NULL;
     <div class="card-body">
 
         <form action="" method="post">
-            <input type="text" name="cep">
+            <input type="text" name="cep" id="numero" class="" placeholder="Digite o cep desejado:" required
+                value="<?=$cep?>">
+
+            <br><br>
+
             <button type="submit" class="btn btn-success">Buscar CEP</button>
+
         </form>
-        <?php if($_POST['cep']){ ?>
+
+        <?php if($foi) { ?>
+
+        <br> <br>
+
         <h2>CEP Encontrado: </h2>
+
         <p>
-            <?php $endereco = get_endereco($_POST['cep']); ?>
-            <b>CEP: </b> <?php echo $endereco['cep']; ?><br>
-            <b>Logradouro: </b> <?php echo $endereco['logradouro']; ?><br>
-            <b>Bairro: </b> <?php echo $endereco['bairro']; ?><br>
-            <b>Localidade: </b> <?php echo $endereco['localidade']; ?><br>
-            <b>UF: </b> <?php echo $endereco['uf']; ?><br>
+            <b>CEP: </b> <?php echo $foi['cep']; ?><br>
+            <b>Logradouro: </b> <?php echo $foi['logradouro']; ?><br>
+            <b>Bairro: </b> <?php echo $foi['bairro']; ?><br>
+            <b>Localidade: </b> <?php echo $foi['localidade']; ?><br>
+            <b>UF: </b> <?php echo $foi['uf']; ?><br>
         </p>
-        <?php 
+
+        <form action="" method="post">
+
+            <input type="text" name="cep" value="<?= $cep['cep'] ?>">
+            <input type="text" name="logradouro" value="<?= $logradouro['logradouro'] ?>">
+            <input type="text" name="bairro" value="<?= $bairro['bairro'] ?>">
+            <input type="text" name="localidade" value="<?= $localidade['localidade'] ?>">
+            <input type="text" name="uf" value="<?= $estado['uf'] ?>">
+            <input type="number" name="numero" value="<?= $numero ?>" placeholder="Digite o número do local"
+                required><br>
+
+            <br><br>
+
+            <button type="submit" class="btn btn-success">Salvar</button>
+        </form>
+        <?php
     }
     ?>
-        <form action="salvar/cep" method="POST">
-            <label for="id"> ID da Categoria</label>
-            <input type="text" name="id" id="id" class="form-control" value="<?=$id?>" readonly>
-
-
-            <label for="nome">Nome da Categoria:</label>
-            <input type="text" name="nome" id="nome" class="form-control" required value="<?=$cep?>">
-
-            <br>
-
-            <button type="submit" class="btn btn-success">Salvar Dados
-            </button>
-        </form>
     </div>
 </div>
