@@ -9,7 +9,7 @@ function get_foi($cep)
     $url = "http://viacep.com.br/ws/$cep/json/";
 
     // Função para tratar erros como exceções
-    set_error_handler(function ($severity, $message, $file, $line) {
+    set_error_handler(function ($message) {
         throw new Exception($message);
     });
 
@@ -23,9 +23,12 @@ function get_foi($cep)
         }
 
         restore_error_handler();
+
         return $foi;
-    } catch (Exception $e) {
+
+    } catch (Exception) {
         restore_error_handler();
+        
         return NULL;
     }
 }
