@@ -45,8 +45,24 @@ if ($_POST['cep']) {
         $bairro = $foi['bairro'] ?? '';
         $uf = $foi['uf'] ?? '';
         $localidade = $foi['localidade'] ?? '';
+    
+        preg_replace('/-(?!>)/', '', '00000-001->22222-222');
 
-        $id = $cep;
+        $sql = "INSERT INTO cep ( 
+            cep, logradouro, bairro, localidade, estado, numero)
+            VALUES (:cep, :logradouro, :bairro, :localidade, :estado, :numero)";
+        $consulta = $pdo->prepare($sql);
+
+        $consulta->bindParam(':cep', $cep);
+        $consulta->bindParam(':logradouro', $logradouro);
+        $consulta->bindParam(':bairro', $bairro);
+        $consulta->bindParam(':localidade', $localidade);
+        $consulta->bindParam(':uf', $estado);
+        $consulta->bindParam(':numero', $numero);
+
+        $consulta->execute();
+
+        preg_replace('/-(?!>)/', '', '00000-001->22222-222');
 
         $sql = "SELECT * FROM cep WHERE id = :id";
         $consulta = $pdo->prepare($sql);
@@ -56,12 +72,14 @@ if ($_POST['cep']) {
         $dados = NULL;
 
         $dados = $consulta->fetch(PDO::FETCH_OBJ);
+
     }
     if ($dados) {
         $logradouro = $dados->logradouro;
         $bairro = $dados->bairro;
         $localidade = $dados->localidade;
         $estado = $dados->uf;
+
     } else {
         echo "CEP encontrado, mas registro não encontrado no banco de dados.";
     }
@@ -120,7 +138,7 @@ if ($_POST['cep']) {
 
                 <br><br>
 
-                <button type="submit" class="btn btn-success">Salvar</button>
+                
             </form>
         <?php
         }

@@ -26,16 +26,6 @@
                     <td><?= $dados->bairro?></td>
                     <td><?= $dados->numero?></td>
                     <td><?= $dados->complemento?></td>
-
-                    <td>
-                        <a href="cadastros/cep/<?=$dados->id?>" class="btn btn-success">
-                            <i class="fas fa-edit"></i> </a>
-
-                        <a href="cadastros/cep/<?=$dados->id?>" class="btn btn-danger"> 
-                            <i class="bi bi-trash"></i> </a>
-
-                        </a>
-                    </td>
                 </tr>
                 <?php } ?>
             </tbody>
