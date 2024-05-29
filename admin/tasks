@@ -1,0 +1,9 @@
+// TODO Criar o arquivo cep.php no diretorio listar (ok)
+// TODO Criação do formulário(input para recebimento do CEP via post - action enviando para o mesmo arquivo) (ok)
+// TODO Verificar o preenchimento da variavel CEP vinda da variavel global post (ok)
+// TODO Tratar o valor da variável CEP (tornar o valor do campo em numérico) (ok)
+// TODO Validar o campo CEP se o mesmo tem 8 dígitos e verificar se o mesmo não é vazio (ok)
+// TODO Criar a tabela CEP no banco de dados com as colunas do cep(id,cep,logradouro,bairro,localidade,uf,complemento) (ok)
+// TODO Consultar se o cep digitado no campo de cep existe no banco de dados (ok)
+// TODO Validar se não retornar dados do banco, consultar o cep na Api ViaCep e gravar os dados no banco de dados(tratar o CEP que vem do viacep, retirando o hífen "-")
+// TODO Mostrar os dados do CEP em uma tabela na tela de listagem do CEP 

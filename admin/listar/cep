@@ -1,0 +1,35 @@
+<?php
+
+    if($_POST) {
+        $cep = $_POST["buscarCep"] ?? NULL;
+        $cep = preg_replace("/[^0-9]/","",$cep);
+
+        if(strlen($cep) == 8 && !empty($cep)){
+        //echo "Entrou no if";
+
+        $sql = "SELECT * FROM cep WHERE cep = :cep";
+        $consulta = $pdo->prepare($sql);
+        $consulta->bindParam(":cep",$cep); 
+        $consulta->execute();
+        
+        $dados = $consulta->fetch(PDO::FETCH_OBJ);
+        //var_dump($dados);
+
+        if(empty($dados)) {
+            $url = "https://viacep.com.br/ws/$cep/json/";
+            
+        }
+
+        }
+    }
+
+?>
+
+<div>
+    <form action="" method="POST">
+        <label for="buscarCep">Buscar CEP</label>
+        <input type="text" class="form-control form-control-lg" name="buscarCep" required placeholder="Insira seu CEP">
+        <br>
+        <button type="submit" class="btn btn-outline-success">Buscar</button>
+    </form>
+</div>
